@@ -429,23 +429,21 @@ class IniEdit(mobase.IPluginTool):
         self.__parentWidget = widget
 
     def __iniFiles(self):
-        gameName = self.__organizer.managedGame().gameShortName().lower()
+        gameName = self.__organizer.managedGame().getGameShortName().toLower()
         if gameName == "oblivion":
             return ["oblivion.ini",  "oblivionprefs.ini"]
         elif gameName == "fallout3" or gameName == "falloutnv":
             return ["fallout.ini",  "falloutprefs.ini"]
-        elif gameName == "fallout4":
-            return ["fallout4.ini",  "fallout4prefs.ini"]
         elif gameName == "skyrim":
             return ["skyrim.ini",  "skyrimprefs.ini"]
-        elif str(gameType) == "fallout4":
+        elif gameName == "fallout4":
             return ["fallout4.ini", "fallout4prefs.ini", "fallout4custom.ini"]
         else:
             return []
 
     def __filteredSettings(self):
         newSettings = CaselessDict()
-        gameName = str(self.__organizer.managedGame().gameShortName())
+        gameName = str(self.__organizer.managedGame().getGameShortName())
         
         iniFiles = self.__iniFiles()
         
