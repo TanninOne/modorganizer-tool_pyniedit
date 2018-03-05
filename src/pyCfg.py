@@ -5,7 +5,7 @@ import ConfigParser
 
 # qt5
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt, pyqtWrapperType, pyqtSlot, pyqtSignal
+from PyQt5.QtCore import Qt, pyqtSlot, pyqtSignal
 from PyQt5.QtGui import QColor, QPalette
 from PyQt5.QtWidgets import QDialog, QHeaderView, QMessageBox, QColorDialog, QTreeWidgetItem,\
     QComboBox, QPushButton, QDoubleSpinBox, QHBoxLayout, QWidget, QSlider, QSpinBox, QLineEdit
@@ -448,16 +448,17 @@ class IniEdit(mobase.IPluginTool):
         gameName = str(self.__organizer.managedGame().gameShortName())
         
         iniFiles = self.__iniFiles()
-        
+
         for sectionKey in self.__settings.keys():
             section = self.__settings[sectionKey]
             filteredSection = CaselessDict()
             for key,  setting in section.iteritems():
                 setting["value"] = setting["default"]
-                if "prefs" in setting.get("flags", []):
-                    setting["file"] = iniFiles[1]
-                else:
-                    setting["file"] = iniFiles[0]
+                if iniFiles:
+                    if "prefs" in setting.get("flags", []):
+                        setting["file"] = iniFiles[1]
+                    else:
+                        setting["file"] = iniFiles[0]
                 if "games" in setting and gameName not in setting["games"]:
                     # not for this game
                     continue

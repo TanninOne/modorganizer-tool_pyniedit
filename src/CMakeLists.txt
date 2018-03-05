@@ -12,7 +12,7 @@ SET(project_path "${default_project_path}" CACHE PATH "path to the other mo proj
 FIND_PATH(pyuic_path pyuic5.bat PATHS "${PYTHON_ROOT}")
 
 EXECUTE_PROCESS(COMMAND ${PYTHON_ROOT}/pyuic5.bat -o ${CMAKE_CURRENT_BINARY_DIR}/pyCfgDialog.py ${CMAKE_CURRENT_SOURCE_DIR}/pyCfgDialog.ui WORKING_DIRECTORY ${PYTHON_ROOT})
-EXECUTE_PROCESS(COMMAND ${PYTHON_ROOT}/pyrcc5.exe -o ${CMAKE_CURRENT_BINARY_DIR}/pyCfgResource_rc.py ${CMAKE_CURRENT_SOURCE_DIR}/pyCfgResource.qrc)
+EXECUTE_PROCESS(COMMAND ${PYTHON_ROOT}/pyrcc5.bat -o ${CMAKE_CURRENT_BINARY_DIR}/pyCfgResource_rc.py ${CMAKE_CURRENT_SOURCE_DIR}/pyCfgResource.qrc WORKING_DIRECTORY ${PYTHON_ROOT})
 
 add_custom_target(translations ALL DEPENDS ${configurator_translations_qm})
 
